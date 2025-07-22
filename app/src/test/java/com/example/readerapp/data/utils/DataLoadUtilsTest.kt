@@ -2,7 +2,7 @@
 package com.example.readerapp.data.utils
 
 import app.cash.turbine.test
-import com.example.readerapp.data.common.DataLoadConfig
+import com.example.readerapp.domain.dataload.DataLoadConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,10 +1,10 @@
 package com.example.readerapp.ui.common.model
 
-sealed class UiLoadingState {
+sealed interface UiLoadingState {
 
-    data object ContentLoading : UiLoadingState()
+    data object ContentLoading : UiLoadingState
 
-    data object ContentLoadingError : UiLoadingState()
+    data object ContentLoadingError : UiLoadingState
 
-    data object Content : UiLoadingState()
+    data object Content : UiLoadingState
 }

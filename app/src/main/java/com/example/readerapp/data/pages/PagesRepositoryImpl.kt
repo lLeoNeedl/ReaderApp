@@ -1,6 +1,6 @@
 package com.example.readerapp.data.pages
 
-import com.example.readerapp.data.common.DataLoadConfig
+import com.example.readerapp.domain.dataload.DataLoadConfig
 import com.example.readerapp.data.pages.source.local.PagesLocalDataSource
 import com.example.readerapp.data.pages.source.remote.PagesRemoteDataSource
 import com.example.readerapp.data.utils.dataLoadFlow

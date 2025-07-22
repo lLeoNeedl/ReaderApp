@@ -10,13 +10,13 @@ data class PageContent(
     val kind: PageContentKind
 )
 
-sealed class PageContentKind {
+sealed interface PageContentKind {
 
-    data object Page : PageContentKind()
+    data object Page : PageContentKind
 
-    data object Section : PageContentKind()
+    data object Section : PageContentKind
 
-    data object Text : PageContentKind()
+    data object Text : PageContentKind
 
-    data class Image(val url: String?) : PageContentKind()
+    data class Image(val url: String?) : PageContentKind
 }

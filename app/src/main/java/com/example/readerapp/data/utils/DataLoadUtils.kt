@@ -1,7 +1,7 @@
 package com.example.readerapp.data.utils
 
 import androidx.annotation.VisibleForTesting
-import com.example.readerapp.data.common.DataLoadConfig
+import com.example.readerapp.domain.dataload.DataLoadConfig
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

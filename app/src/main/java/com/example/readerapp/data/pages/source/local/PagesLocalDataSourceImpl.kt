@@ -9,16 +9,19 @@ import com.example.readerapp.data.source.remote.model.pages.ApiPageContent
 import com.example.readerapp.data.source.remote.model.pages.mapper.ApiPageContentMapper
 import com.example.readerapp.domain.pages.model.PageContent
 import com.example.readerapp.domain.pages.model.PageContentType
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 
 class PagesLocalDataSourceImpl(
-    private val database: AppDatabase
+    private val database: AppDatabase,
+    private val defaultDispatcher: CoroutineDispatcher
 ) : PagesLocalDataSource {
 
     private val pageContentDao = database.pageContentDao()
 
-    override suspend fun savePageContent(content: ApiPageContent) {
+    override suspend fun savePageContent(content: ApiPageContent) = withContext(defaultDispatcher) {
 
         val flattenedContent = ApiPageContentMapper.flatten(
             apiPageContent = content,
@@ -39,7 +42,6 @@ class PagesLocalDataSourceImpl(
 
             val dbContent = DbPageContentMapper.toDbPageContent(
                 contentFlattened = contentFlattened,
-                id = contentFlattened.id,
                 orderPosition = orderPosition++
             )
 
@@ -50,7 +52,6 @@ class PagesLocalDataSourceImpl(
             if (type == PageContentType.Image) {
 
                 val dbContentImage = DbPageContentMapper.toDbPageContentImage(
-                    id = contentFlattened.id,
                     contentFlattened = contentFlattened
                 )
 

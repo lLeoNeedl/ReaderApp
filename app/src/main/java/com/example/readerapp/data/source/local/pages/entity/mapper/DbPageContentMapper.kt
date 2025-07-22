@@ -44,7 +44,6 @@ object DbPageContentMapper {
 
     fun toDbPageContent(
         contentFlattened: PageContentFlattened,
-        id: String,
         orderPosition: Int,
     ): DbPageContent {
 
@@ -62,12 +61,13 @@ object DbPageContentMapper {
 
     fun toDbPageContentImage(
         contentFlattened: PageContentFlattened,
-        id: String,
     ): DbPageContentImage {
 
-        return DbPageContentImage(
-            id = id,
-            url = contentFlattened.imageUrl
-        )
+        return with(contentFlattened) {
+            DbPageContentImage(
+                id = id,
+                url = imageUrl
+            )
+        }
     }
 }

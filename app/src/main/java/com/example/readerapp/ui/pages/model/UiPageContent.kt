@@ -5,12 +5,12 @@ data class UiPageContent(
     val kind: UiPageContentKind
 )
 
-sealed class UiPageContentKind {
+sealed interface UiPageContentKind {
 
     data class Text(
         val text: String,
         val textSize: Int
-    ) : UiPageContentKind()
+    ) : UiPageContentKind
 
-    data class Image(val url: String) : UiPageContentKind()
+    data class Image(val url: String) : UiPageContentKind
 }

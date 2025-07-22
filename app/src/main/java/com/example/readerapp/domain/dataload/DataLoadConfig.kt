@@ -1,15 +1,15 @@
-package com.example.readerapp.data.common
+package com.example.readerapp.domain.dataload
 
-sealed class DataLoadConfig {
+sealed interface DataLoadConfig {
 
     /**
      * Loads data from remote datasource, saves it to local datasource, and returns local data with subscription.
      * If remote failed to load, existing local data will still be returned, making the local data the source of truth.
      */
-    data object OfflineFirst : DataLoadConfig()
+    data object OfflineFirst : DataLoadConfig
 
     /**
      * Fetches only local data with subscription.
      */
-    data object LocalOnly : DataLoadConfig()
+    data object LocalOnly : DataLoadConfig
 }

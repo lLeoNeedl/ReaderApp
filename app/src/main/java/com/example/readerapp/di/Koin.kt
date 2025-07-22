@@ -3,6 +3,7 @@ package com.example.readerapp.di
 import com.example.readerapp.ReaderApplication
 import com.example.readerapp.di.modules.dataModule
 import com.example.readerapp.di.modules.databaseModule
+import com.example.readerapp.di.modules.dispatchersModule
 import com.example.readerapp.di.modules.domainModule
 import com.example.readerapp.di.modules.remoteModule
 import com.example.readerapp.di.modules.viewModelsModule
@@ -16,11 +17,12 @@ fun initKoin(application: ReaderApplication) {
         androidContext(application)
 
         modules(
-            remoteModule,
-            databaseModule,
             dataModule,
+            databaseModule,
+            dispatchersModule,
             domainModule,
-            viewModelsModule
+            remoteModule,
+            viewModelsModule,
         )
     }
 }
