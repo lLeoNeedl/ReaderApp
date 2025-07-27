@@ -17,7 +17,7 @@ class ApiClient(
     fun getPageContent(): Flow<ApiPageContent> {
 
         return apiFlow<ApiPageContent> {
-            httpClient.get(Endpoint.PAGE)
+            httpClient.get(Endpoint.PAGES)
         }
     }
 
@@ -47,10 +47,10 @@ class ApiClient(
     }
 
     object Endpoint {
-        const val PAGE = "v1/f118b9f0-6f84-435e-85d5-faf4453eb72a"
+        const val PAGES = "pages"
     }
 
     companion object {
-        const val BASE_URL = "https://mocki.io/"
+        const val BASE_URL = "https://mpdf21ebb57e8e4603dd.free.beeceptor.com"
     }
 }
