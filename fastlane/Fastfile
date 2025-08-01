@@ -1,0 +1,64 @@
+
+default_platform(:android)
+
+platform :android do
+
+  lane :build_dev do |options|
+
+      with_tests = options.fetch(:with_tests, true)
+      with_lint = options.fetch(:with_lint, true)
+
+      run_checks(
+        with_tests: with_tests,
+        with_lint: with_lint
+      )
+      build_apk
+  end
+
+  lane :build_release do |options|
+
+      with_tests = options.fetch(:with_tests, false)
+      with_lint = options.fetch(:with_lint, false)
+
+      run_checks(
+        with_tests: with_tests,
+        with_lint: with_lint
+      )
+      build_bundle
+#       deploy
+  end
+
+  lane :run_checks do |options|
+
+      with_tests = options.fetch(:with_tests, true)
+      with_lint = options.fetch(:with_lint, true)
+
+      gradle(task: "clean")
+
+      if (with_tests)
+          gradle(task: "test")
+      end
+
+      if (with_lint)
+          gradle(task: "lint")
+      end
+  end
+
+  private_lane :build_apk do
+      gradle(
+        task: "assemble",
+        build_type: "Release"
+      )
+  end
+
+  private_lane :build_bundle do
+      gradle(
+        task: "bundle",
+        build_type: "Release"
+      )
+  end
+
+  private_lane :deploy do
+      upload_to_play_store
+  end
+end

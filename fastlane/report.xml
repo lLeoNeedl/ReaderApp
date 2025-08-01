@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000226">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: Switch to android run_checks lane" time="0.000105">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: clean" time="7.669411">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: Switch to android build_bundle lane" time="0.000405">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: bundleRelease" time="27.987096">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
