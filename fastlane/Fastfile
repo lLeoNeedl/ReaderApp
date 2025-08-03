@@ -1,31 +1,19 @@
-
 default_platform(:android)
 
 platform :android do
 
   lane :build_dev do |options|
-
-      with_tests = options.fetch(:with_tests, true)
-      with_lint = options.fetch(:with_lint, true)
-
-      run_checks(
-        with_tests: with_tests,
-        with_lint: with_lint
-      )
-      build_apk
+      assemble_release
   end
 
   lane :build_release do |options|
 
-      with_tests = options.fetch(:with_tests, false)
-      with_lint = options.fetch(:with_lint, false)
+      track = options.fetch(:track, "alpha")
 
-      run_checks(
-        with_tests: with_tests,
-        with_lint: with_lint
+      bundle_release
+      deploy(
+        track: track
       )
-      build_bundle
-#       deploy
   end
 
   lane :run_checks do |options|
@@ -44,21 +32,39 @@ platform :android do
       end
   end
 
-  private_lane :build_apk do
+  private_lane :assemble_release do
       gradle(
         task: "assemble",
         build_type: "Release"
       )
   end
 
-  private_lane :build_bundle do
+  private_lane :bundle_release do
+
+      keystore_path = File.expand_path("keystore.jks")
+
       gradle(
         task: "bundle",
-        build_type: "Release"
+        build_type: "Release",
+        properties: {
+            "android.injected.signing.store.file" => File.expand_path(keystore_path),
+            "android.injected.signing.store.password" => ENV["KEYSTORE_PASSWORD"],
+            "android.injected.signing.key.alias" => ENV["KEY_ALIAS"],
+            "android.injected.signing.key.password" => ENV["KEY_PASSWORD"],
+        }
       )
   end
 
-  private_lane :deploy do
-      upload_to_play_store
+  private_lane :deploy do |options|
+
+      track = options.fetch(:track)
+
+      upload_to_play_store(
+        track: track,
+        json_key_data: ENV["SERVICE_ACCOUNT_KEY"],
+        skip_upload_apk: true,
+        release_status: "draft"
+      )
   end
+
 end
