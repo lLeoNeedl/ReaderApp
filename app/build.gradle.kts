@@ -7,15 +7,15 @@ plugins {
 }
 
 android {
-    namespace = "com.example.readerapp"
+    namespace = "com.readerapp.readerapp"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.readerapp"
+        applicationId = "com.readerapp.readerapp"
         minSdk = 28
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 104
+        versionName = "1.0.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
