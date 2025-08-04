@@ -1,4 +1,4 @@
-name: 'Run lint and tests'
+name: Run lint and tests
 
 runs:
   using: 'composite'

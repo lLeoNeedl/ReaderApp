@@ -1,4 +1,4 @@
-name: 'Setup Android Environment'
+name: Setup Android Environment
 
 inputs:
   java-version:

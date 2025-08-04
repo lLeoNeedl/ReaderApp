@@ -12,6 +12,7 @@ ReaderApp is a native Android application built using modern technologies such a
 - Koin
 - Coroutines + Flow
 - JUnit
+- Fastlane + GitHub Actions
 
 ### Installation
 
