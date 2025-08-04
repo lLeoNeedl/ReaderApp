@@ -1,0 +1,42 @@
+name: Build and deploy Release
+
+on:
+  push:
+    branches: [ cicd-release ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    env:
+      KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+      KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+      KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+      SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: Prepare keystore
+        run: |
+          mkdir -p fastlane
+          echo "${{ secrets.KEYSTORE_FILE_BASE64 }}" | base64 --decode > fastlane/keystore.jks
+          echo "Keystore saved at: $(realpath fastlane/keystore.jks)"
+
+      - name: Setup Android Environment
+        uses: ./.github/actions/setup-android
+        with:
+          java-version: '17'
+
+      - name: Run lint and tests
+        uses: ./.github/actions/run-checks
+
+      - name: Build and deploy
+        run: fastlane build_release
+
+      - name: Cleanup keystore
+        if: ${{ !cancelled() }}
+        run: rm -f fastlane/keystore.jks

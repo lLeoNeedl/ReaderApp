@@ -1,0 +1,26 @@
+name: Build Dev
+
+on:
+  push:
+    branches: [ cicd-develop ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup Android Environment
+        uses: ./.github/actions/setup-android
+        with:
+          java-version: '17'
+
+      - name: Run lint and tests
+        uses: ./.github/actions/run-checks
+
+      - name: Build
+        run: fastlane build_dev
